@@ -12,15 +12,15 @@ int state;
 // the setup function runs once when you press reset or power the board
 void setup() {
 	Serial.begin(4800);
-	//Serial1.begin(9600);
+	Serial1.begin(9600);
 	
 	// Initialize the input and output pins.
 	pinMode(blockAlignedPin, INPUT);
 	pinMode(blockGrabbedPin, OUTPUT);
 	pinMode(readyPin, INPUT);
-	pinMode(A1, INPUT);
-	//pinMode(A9, INPUT);
-	//pinMode(A10, INPUT);
+	pinMode(A8, INPUT);
+	pinMode(A9, INPUT);
+	pinMode(A10, INPUT);
 	pinMode(configLEDPin, OUTPUT);
 	pinMode(powerPin, INPUT);
 	pinMode(configPin, INPUT);
@@ -142,9 +142,9 @@ void setup() {
 			while (false) {
 			//while (digitalRead(readyPin) == HIGH) {
 				String incomingMessage = "";
-				if (Serial.available()) {
-					incomingMessage = Serial.readString();
-					Serial.print("REC");
+				if (Serial1.available()) {
+					incomingMessage = Serial1.readString();
+					Serial1.print("REC");
 				}
 
 				Serial.println(incomingMessage);
