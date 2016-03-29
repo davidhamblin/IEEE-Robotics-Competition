@@ -40,6 +40,26 @@ void setup()
 
 	pixy.init();
 
+	delay(2000);
+	Serial.write("V3");
+
+	int timeoutDelay = 0;
+	/*
+	while (Serial.available() == 0) {
+		delay(1000);
+		timeoutDelay += 1;
+		if (timeoutDelay == 3) {
+			Serial.write("V3");
+			timeoutDelay = 0;
+		}
+	}
+	if (Serial.readString() == "REC") {
+		delay(2000);
+		Serial.write("V1");
+	}
+	delay(1000);
+	Serial.write("V1");
+	*/
 	while (false) {
 		while (digitalRead(powerPin) == HIGH) {
 			/*
@@ -88,6 +108,7 @@ void setup()
 				Serial.println("W0");
 			}
 			// Once the blocks are found, adjust the robot so that it can pick up the block, with info sent from the Uno.
+			/*
 			else if (state == 1) {
 				while (digitalRead(blockAlignedPin) == LOW) {
 					//String blockColor = extractColor(colorPins);
@@ -134,11 +155,13 @@ void setup()
 					state = 2;
 				}
 			}
+			*/
 			// TODO: With the block in the claw, drive towards the appropriate bin.
 			else if (state == 2) {
 
 			}
 			// TODO: Adjust the robots position to properly drop the block in its designated location.
+			/*
 			else if (state == 3) {
 
 				if (openClaw)
@@ -152,6 +175,7 @@ void setup()
 					state = 0;
 				}
 			}
+			*/
 		}
 	}
 }

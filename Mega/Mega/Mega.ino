@@ -11,9 +11,12 @@ int state;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-	Serial.begin(4800);
-	pinMode(A0, INPUT);
+	Serial.begin(9600);
+	pinMode(analogClawPin, INPUT);
+	pinMode(distanceRightPin, INPUT);
+	pinMode(distanceLeftPin, INPUT);
 
+	for (int i = 0; i < 30; i++) { analogRead(analogClawPin); }
 	state = 0;
 	
 	Robot robot;
@@ -22,9 +25,62 @@ void setup() {
 	// true = config A/LED off, false = config B/LED on
 	bool configuration = true;
 
-	int zeroPosition = analogRead(A0);
+	int zeroPosition = analogRead(analogClawPin);
+
+	/*
+	while (true) {
+		if (Serial.available() > 0) {
+			char incomingMessage[] = "";
+			Serial.readBytes(incomingMessage, 2);
+			if (incomingMessage[0] == 'V') {
+				int clawPosition = incomingMessage[1] - '0';
+				setClawPosition(robot, clawPosition, zeroPosition);
+			}
+			Serial.write("REC");
+			delay(1000);
+		}
+	}
+	*/
+
+	delay(2000);
+	setClawPosition(robot, 3, zeroPosition);
+	delay(1000);
+	robot.driveMotors(robot.DRIVE_F, robot.SPEED_FACTOR * 4);
+	while (digitalRead(distanceRightPin) == HIGH && digitalRead(distanceLeftPin) == HIGH) {}
+	//delay(1000);
+	robot.driveMotors(robot.STOP_HARD, 0);
+	delay(50);
+	robot.driveMotors(robot.SPIN_L, 107);
+	delay(150);
+	robot.driveMotors(robot.STOP_HARD, 0);
+	delay(500);
+
+	/*
+
+	setClawPosition(robot, 2, zeroPosition);
+	delay(500);
+
+	while (digitalRead(alignRightPin) == LOW && digitalRead(alignLeftPin) == LOW) {
+		robot.driveMotors(robot.STRAFE_L, robot.SPEED_FACTOR * 7);
+	}
+	robot.driveMotors(robot.STOP_SOFT, 0);
+	delay(500);
+
+	driveForward(robot, robot.SPEED_FACTOR * 7, 300);
+	delay(500);
+
+	setClawPosition(robot, 1, zeroPosition);
+	delay(500);
+
+	robot.closeClaw();
+	delay(500);
 
 	setClawPosition(robot, 3, zeroPosition);
+	delay(500);
+
+	driveBackward(robot, robot.SPEED_FACTOR * 7, 800);
+	delay(500);
+	*/
 
 	bool firstMovement = true;
 	while (false) {
@@ -112,6 +168,8 @@ void setup() {
 					break;
 				case 'B':
 					color = incomingMessage.charAt(1) - '0';
+					break;
+				default:
 					break;
 				}
 			}

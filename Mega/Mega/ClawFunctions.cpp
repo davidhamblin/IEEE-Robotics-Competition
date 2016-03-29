@@ -8,66 +8,61 @@ bool detectGrabbedBlock() {
 void setClawPosition(Robot robot, int position, int zeroPosition)
 {
 	switch (position) {
-	// Move claw to lowest position
+		// Move claw to lowest position
 	case 0:
-		if (analogRead(A1) > (zeroPosition + 40))
+		if (analogRead(analogClawPin) > (zeroPosition + 43))
 			robot.moveClawUp(140);
 		else
 			robot.moveClawDown(80);
-		while (analogRead(A1) != (zeroPosition + 40)) {}
+		while (analogRead(analogClawPin) != (zeroPosition + 41)) {}
 		robot.stopMovingClaw();
 		break;
-	// Move claw to position 6.5"
+		// Move claw to position 6.5"
 	case 1:
-		if (analogRead(A1) > zeroPosition)
+		if (analogRead(analogClawPin) > zeroPosition)
 			robot.moveClawUp(140);
 		else
 			robot.moveClawDown(80);
-		while (analogRead(A1) > (zeroPosition) + 1 || analogRead(A1) < (zeroPosition - 31) - 1) {}
+		while (analogRead(analogClawPin) > (zeroPosition) + 1 || analogRead(analogClawPin) < (zeroPosition - 30) - 1) {}
 		robot.stopMovingClaw();
 		break;
-	// Move claw to position 7"
+		// Move claw to position 7"
 	case 2:
-		if (analogRead(A1) > (zeroPosition - 40))
+		if (analogRead(analogClawPin) > (zeroPosition - 37))
 			robot.moveClawUp(140);
 		else
 			robot.moveClawDown(80);
-		while (analogRead(A1) > (zeroPosition - 40) + 1 || analogRead(A1) < (zeroPosition - 62) - 1) {}
+		while (analogRead(analogClawPin) > (zeroPosition - 37) + 1 || analogRead(analogClawPin) < (zeroPosition - 37) - 1) { Serial.println(analogRead(analogClawPin)); }
 		robot.stopMovingClaw();
 		break;
-	// Move claw to position 8.5"
+		// Move claw to position 8.5"
 	case 3:
-		if (analogRead(A1) > (zeroPosition - 144))
+		if (analogRead(analogClawPin) > (zeroPosition - 142))
 			robot.moveClawUp(140);
 		else
 			robot.moveClawDown(80);
-		while (analogRead(A1) > (zeroPosition - 144) + 1 || analogRead(A1) < (zeroPosition - 162) - 1) {}
+		while (analogRead(analogClawPin) > (zeroPosition - 142) + 1 || analogRead(analogClawPin) < (zeroPosition - 142) - 1) {}
 		robot.stopMovingClaw();
 		break;
-	// Move claw to position 10"
+		// Move claw to position 10"
 	case 4:
-		if (analogRead(A1) > (zeroPosition - 257))
+		if (analogRead(analogClawPin) > (zeroPosition - 256))
 			robot.moveClawUp(140);
 		else
 			robot.moveClawDown(80);
-		while (analogRead(A1) > (zeroPosition - 257) + 1 || analogRead(A1) < (zeroPosition - 268) - 1) {}
+		while (analogRead(analogClawPin) > (zeroPosition - 256) + 1 || analogRead(analogClawPin) < (zeroPosition - 256) - 1) {}
 		robot.stopMovingClaw();
 		break;
-	// Move claw to position 11.5"
+		// Move claw to position 11.5"
 	case 5:
-		if (analogRead(A1) > (zeroPosition - 367))
+		if (analogRead(analogClawPin) > (zeroPosition - 365))
 			robot.moveClawUp(140);
 		else
 			robot.moveClawDown(80);
-		while (analogRead(A1) > (zeroPosition - 367) + 1 || analogRead(A1) < (zeroPosition - 370) - 1) {}
+		while (analogRead(analogClawPin) > (zeroPosition - 365) + 1 || analogRead(analogClawPin) < (zeroPosition - 365) - 1) {}
 		robot.stopMovingClaw();
 		break;
-	// Move clawn to highest position
-	case 6:
-		if (analogRead(A1) > (zeroPosition - 406))
-			robot.moveClawUp(140);
-		while (analogRead(A1) > (zeroPosition - 406) + 1) {}
-		robot.stopMovingClaw();
-		break;
+	default:
+		setClawPosition(robot, 1, zeroPosition);
 	}
 }

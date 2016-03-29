@@ -11,3 +11,7 @@ const int configLEDPin = 53;
 const int blockAlignedPin = 34;
 
 const int blockGrabbedPin = 32;
+
+const int analogClawPin = 0;
+const int distanceRightPin = 1;
+const int distanceLeftPin = 2;
