@@ -15,6 +15,8 @@ void setup() {
 	pinMode(analogClawPin, INPUT);
 	pinMode(distanceRightPin, INPUT);
 	pinMode(distanceLeftPin, INPUT);
+	pinMode(A1, INPUT);
+	pinMode(A2, INPUT);
 
 	for (int i = 0; i < 30; i++) { analogRead(analogClawPin); }
 	state = 0;
@@ -42,11 +44,12 @@ void setup() {
 	}
 	*/
 
-	delay(2000);
-	setClawPosition(robot, 3, zeroPosition);
+	//delay(2000);
+	//setClawPosition(robot, 3, zeroPosition);
+	
 	delay(1000);
 	robot.driveMotors(robot.DRIVE_F, robot.SPEED_FACTOR * 4);
-	while (digitalRead(distanceRightPin) == HIGH && digitalRead(distanceLeftPin) == HIGH) {}
+	while (digitalRead(A1) == HIGH && digitalRead(A2) == HIGH) {}
 	//delay(1000);
 	robot.driveMotors(robot.STOP_HARD, 0);
 	delay(50);
@@ -54,7 +57,7 @@ void setup() {
 	delay(150);
 	robot.driveMotors(robot.STOP_HARD, 0);
 	delay(500);
-
+	
 	/*
 
 	setClawPosition(robot, 2, zeroPosition);
